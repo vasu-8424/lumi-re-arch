@@ -6,8 +6,10 @@ export function Cursor() {
   const label = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let x = -100, y = -100;
-    let rx = -100, ry = -100;
+    let x = -100,
+      y = -100;
+    let rx = -100,
+      ry = -100;
     let raf = 0;
     let active = false;
 
