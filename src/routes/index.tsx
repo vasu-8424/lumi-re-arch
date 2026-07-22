@@ -507,13 +507,10 @@ function Journey() {
 }
 
 function JourneyRoom({ room, index }: { room: (typeof journey)[number]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const flip = index % 2 === 0;
 
   return (
-    <div ref={ref} className="relative">
+    <div className="relative">
       <div
         className={`mx-auto grid max-w-[1600px] items-center gap-8 px-6 md:grid-cols-12 md:px-10 ${flip ? "" : "md:[direction:rtl]"}`}
       >
@@ -523,14 +520,14 @@ function JourneyRoom({ room, index }: { room: (typeof journey)[number]; index: n
           data-cursor-label={`0${index + 1} / 06`}
         >
           <div className="relative aspect-[16/10] overflow-hidden rounded-lg">
-            <motion.img
+            <img
               src={room.src}
               alt={room.name}
               loading="lazy"
-              width={1920}
-              height={1200}
-              style={{ y }}
-              className="absolute inset-0 h-full w-full object-cover will-change-transform"
+              decoding="async"
+              width={1200}
+              height={750}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
             />
             <div className="godrays absolute inset-0 opacity-40" />
             <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--ink)]/40 via-transparent" />
@@ -547,7 +544,7 @@ function JourneyRoom({ room, index }: { room: (typeof journey)[number]; index: n
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             className="font-display text-5xl leading-[0.9] tracking-tight md:text-6xl"
           >
             <span className="italic">{room.name}</span>
