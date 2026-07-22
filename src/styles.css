@@ -197,14 +197,13 @@
     background:
       conic-gradient(from 210deg at 70% -10%,
         transparent 0deg,
-        rgba(255, 220, 170, 0.35) 20deg,
+        rgba(255, 220, 170, 0.18) 20deg,
         transparent 45deg,
-        rgba(255, 220, 170, 0.25) 70deg,
+        rgba(255, 220, 170, 0.12) 70deg,
         transparent 95deg);
-    filter: blur(30px);
     pointer-events: none;
-    mix-blend-mode: screen;
-    animation: raysDrift 22s ease-in-out infinite alternate;
+    will-change: transform;
+    opacity: 0.7;
   }
 
   @keyframes raysDrift {

@@ -6,20 +6,36 @@ export function Cursor() {
   const label = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let x = window.innerWidth / 2, y = window.innerHeight / 2;
-    let rx = x, ry = y;
+    let x = -100, y = -100;
+    let rx = -100, ry = -100;
     let raf = 0;
-    const move = (e: MouseEvent) => { x = e.clientX; y = e.clientY; };
+    let active = false;
+
     const loop = () => {
-      rx += (x - rx) * 0.18;
-      ry += (y - ry) * 0.18;
+      rx += (x - rx) * 0.3;
+      ry += (y - ry) * 0.3;
+
       if (dot.current) dot.current.style.transform = `translate3d(${x}px,${y}px,0)`;
       if (ring.current) ring.current.style.transform = `translate3d(${rx}px,${ry}px,0)`;
       if (label.current) label.current.style.transform = `translate3d(${rx}px,${ry}px,0)`;
-      raf = requestAnimationFrame(loop);
+
+      if (Math.abs(x - rx) > 0.1 || Math.abs(y - ry) > 0.1) {
+        raf = requestAnimationFrame(loop);
+      } else {
+        active = false;
+      }
     };
-    raf = requestAnimationFrame(loop);
-    window.addEventListener("mousemove", move);
+
+    const move = (e: MouseEvent) => {
+      x = e.clientX;
+      y = e.clientY;
+      if (!active) {
+        active = true;
+        raf = requestAnimationFrame(loop);
+      }
+    };
+
+    window.addEventListener("mousemove", move, { passive: true });
 
     const targets = document.querySelectorAll<HTMLElement>("[data-cursor]");
     const enter = (e: Event) => {
@@ -31,32 +47,49 @@ export function Cursor() {
       ring.current?.setAttribute("data-mode", "");
       if (label.current) label.current.textContent = "";
     };
-    targets.forEach((t) => { t.addEventListener("mouseenter", enter); t.addEventListener("mouseleave", leave); });
+    targets.forEach((t) => {
+      t.addEventListener("mouseenter", enter);
+      t.addEventListener("mouseleave", leave);
+    });
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", move);
-      targets.forEach((t) => { t.removeEventListener("mouseenter", enter); t.removeEventListener("mouseleave", leave); });
+      targets.forEach((t) => {
+        t.removeEventListener("mouseenter", enter);
+        t.removeEventListener("mouseleave", leave);
+      });
     };
   }, []);
 
   return (
     <>
-      <div ref={ring} className="pointer-events-none fixed left-0 top-0 z-[100] hidden md:block"
-        style={{ marginLeft: -22, marginTop: -22 }}>
-        <div className="cursor-ring h-11 w-11 rounded-full border border-[color:var(--ink)]/50 mix-blend-difference transition-[width,height,border-radius,background,opacity] duration-300"
-          data-mode="" />
+      <div
+        ref={ring}
+        className="pointer-events-none fixed left-0 top-0 z-[100] hidden md:block"
+        style={{ marginLeft: -22, marginTop: -22, willChange: "transform" }}
+      >
+        <div
+          className="cursor-ring h-11 w-11 rounded-full border border-[color:var(--copper)]/60 bg-[color:var(--copper)]/10 transition-[width,height,border-radius,background,opacity] duration-300"
+          data-mode=""
+        />
       </div>
-      <div ref={dot} className="pointer-events-none fixed left-0 top-0 z-[101] hidden md:block"
-        style={{ marginLeft: -3, marginTop: -3 }}>
-        <div className="h-1.5 w-1.5 rounded-full bg-[color:var(--copper)]" />
+      <div
+        ref={dot}
+        className="pointer-events-none fixed left-0 top-0 z-[101] hidden md:block"
+        style={{ marginLeft: -3, marginTop: -3, willChange: "transform" }}
+      >
+        <div className="h-1.5 w-1.5 rounded-full bg-[color:var(--copper)] shadow-[0_0_8px_rgba(200,100,50,0.6)]" />
       </div>
-      <div ref={label} className="pointer-events-none fixed left-0 top-0 z-[102] hidden md:block text-[10px] font-mono uppercase tracking-[0.2em] text-[color:var(--cream)]"
-        style={{ marginLeft: 22, marginTop: 22 }} />
+      <div
+        ref={label}
+        className="pointer-events-none fixed left-0 top-0 z-[102] hidden md:block text-[10px] font-mono uppercase tracking-[0.2em] text-[color:var(--cream)]"
+        style={{ marginLeft: 22, marginTop: 22, willChange: "transform" }}
+      />
       <style>{`
         .cursor-ring[data-mode="view"] { width: 88px; height: 88px; margin-left: -44px; margin-top: -44px; background: color-mix(in oklch, var(--ink) 88%, transparent); border-color: transparent; }
         .cursor-ring[data-mode="drag"] { width: 108px; height: 108px; margin-left: -54px; margin-top: -54px; background: color-mix(in oklch, var(--copper) 82%, transparent); border-color: transparent; }
-        .cursor-ring[data-mode="link"] { width: 64px; height: 64px; margin-left: -32px; margin-top: -32px; border-color: var(--copper); background: color-mix(in oklch, var(--copper) 15%, transparent); }
+        .cursor-ring[data-mode="link"] { width: 64px; height: 64px; margin-left: -32px; margin-top: -32px; border-color: var(--copper); background: color-mix(in oklch, var(--copper) 25%, transparent); }
       `}</style>
     </>
   );
