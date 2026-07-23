@@ -253,102 +253,74 @@ function Nav() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
   return (
-    <section id="top" ref={ref} className="relative min-h-screen overflow-hidden bg-blue-950">
-      <motion.div style={{ y }} className="absolute inset-0 will-change-transform">
+    <section id="top" className="relative min-h-screen overflow-hidden bg-blue-950 flex items-center pt-28 sm:pt-32 md:pt-36 pb-16">
+      <div className="absolute inset-0 pointer-events-none">
         <img
           src={hero}
           alt="Child and Teacher Play School Sensory Equipment Setup"
           className="h-full w-full object-cover"
+          loading="eager"
+          decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/80 via-blue-950/45 to-transparent" />
-        <div className="godrays absolute inset-0 opacity-30" />
-        <div className="grain" />
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/85 via-blue-950/50 to-transparent" />
+      </div>
 
-      <motion.div
-        style={{ y: textY, opacity }}
-        className="relative z-10 flex min-h-screen items-center pt-28 sm:pt-32 md:pt-36 pb-16"
-      >
-        <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10">
-          <div className="max-w-2xl bg-blue-950/40 backdrop-blur-sm p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
-            {/* Promotional Badge */}
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-600/90 backdrop-blur-md px-4 py-1.5 border border-blue-400/40 shadow-xl text-white font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-bold">
-              <span className="h-2 w-2 rounded-full bg-red-500 animate-ping" />
-              <span>• SAME-DAY QUOTE • GST INVOICE • PAN-INDIA DELIVERY</span>
-            </div>
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 md:px-10">
+        <div className="max-w-2xl bg-blue-950/50 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
+          {/* Promotional Badge */}
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-600/90 px-4 py-1.5 border border-blue-400/40 shadow-xl text-white font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-bold">
+            <span className="h-2 w-2 rounded-full bg-red-500 animate-ping" />
+            <span>• SAME-DAY QUOTE • GST INVOICE • PAN-INDIA DELIVERY</span>
+          </div>
 
-            {/* Main Headline */}
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-black leading-[0.95] tracking-tight text-white">
-              <RevealLine>You Show Us the Space.</RevealLine>
-              <RevealLine delay={0.15}>
-                <span className="text-white">We Build the </span>
-                <span className="italic text-[color:var(--brass)] font-serif">Vision</span>.
-              </RevealLine>
-            </h1>
+          {/* Main Headline */}
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-black leading-[0.95] tracking-tight text-white">
+            <RevealLine>You Show Us the Space.</RevealLine>
+            <RevealLine delay={0.15}>
+              <span className="text-white">We Build the </span>
+              <span className="italic text-[color:var(--brass)] font-serif">Vision</span>.
+            </RevealLine>
+          </h1>
 
-            {/* Clean, Streamlined Sub-heading */}
-            <p className="mt-4 text-sm sm:text-base text-blue-100 font-sans font-medium leading-relaxed">
-              The Absolute One-Stop Solution for Setting Up Child Development Centers, Play Schools, and Educational Institutions.
-            </p>
+          {/* Clean, Streamlined Sub-heading */}
+          <p className="mt-4 text-sm sm:text-base text-blue-100 font-sans font-medium leading-relaxed">
+            The Absolute One-Stop Solution for Setting Up Child Development Centers, Play Schools, and Educational Institutions.
+          </p>
 
-            {/* Action Buttons */}
-            <div className="mt-6 flex flex-wrap items-center gap-4">
-              <a
-                href="https://wa.me/918008227539?text=Hi%2C%20I%20would%20like%20to%20get%20a%20bulk%20quote%20for%20an%20educational%2Fplay%20school%20setup."
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor="link"
-                data-cursor-label="quote"
-                className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-blue-950 font-bold shadow-2xl hover:bg-blue-50 transition-all scale-100 hover:scale-105"
-              >
-                <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-                <span>Get a Bulk Quote</span>
-              </a>
+          {/* Action Buttons */}
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <a
+              href="https://wa.me/918008227539?text=Hi%2C%20I%20would%20like%20to%20get%20a%20bulk%20quote%20for%20an%20educational%2Fplay%20school%20setup."
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="link"
+              data-cursor-label="quote"
+              className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-blue-950 font-bold shadow-2xl hover:bg-blue-50 transition-all scale-100 hover:scale-105"
+            >
+              <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+              <span>Get a Bulk Quote</span>
+            </a>
 
-              <a
-                href="#services"
-                data-cursor="link"
-                data-cursor-label="explore"
-                className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/10 backdrop-blur-md px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-white font-bold hover:bg-white hover:text-blue-950 transition-all"
-              >
-                <span>Browse Services →</span>
-              </a>
-            </div>
+            <a
+              href="#services"
+              data-cursor="link"
+              data-cursor-label="explore"
+              className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/10 px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-white font-bold hover:bg-white hover:text-blue-950 transition-all"
+            >
+              <span>Browse Services →</span>
+            </a>
+          </div>
 
-            {/* WhatsApp Note */}
-            <div className="mt-4 flex items-center gap-2 font-sans text-xs text-blue-200/90 font-medium">
-              <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-400" />
-              <span>Or chat on <strong>WhatsApp (+91 8008227539)</strong> — we reply within minutes</span>
-            </div>
+          {/* WhatsApp Note */}
+          <div className="mt-4 flex items-center gap-2 font-sans text-xs text-blue-200/90 font-medium">
+            <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-400" />
+            <span>Or chat on <strong>WhatsApp (+91 8008227539)</strong> — we reply within minutes</span>
           </div>
         </div>
-      </motion.div>
-
-      {/* Floating 3D Geometric Accents */}
-      <FloatingObject
-        className="hidden lg:block left-[2%] top-[12%] z-0 opacity-30 float-y"
-        size={48}
-        shape="paper"
-      />
-      <FloatingObject
-        className="hidden xl:block right-[3%] top-[15%] z-0 opacity-30 float-y-slow"
-        size={56}
-        shape="cube"
-      />
-      <FloatingObject
-        className="hidden lg:block left-[2%] bottom-[15%] z-0 opacity-25 float-y-slow"
-        size={40}
-        shape="sphere"
-      />
+      </div>
     </section>
   );
 }
