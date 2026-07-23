@@ -16,20 +16,20 @@ import { Phone, Mail, MapPin } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Guild Services — You Show Us the Space. We Build the Vision." },
+      { title: "Guild Services — Turnkey Play Schools, Preschools & OT Sensory Equipment" },
       {
         name: "description",
         content:
-          "The absolute one-stop solution for setting up Child Development Centers, Play Schools, and Educational Institutions. Civil works, interiors, furniture, electronics & branding.",
+          "Complete turnkey setups for Play Schools, Preschools, Primary Schools, and Child Development / OT Centers. Civil works, interiors, sensory play equipment, ergonomic furniture, and branding.",
       },
       {
         property: "og:title",
-        content: "Guild Services — You Show Us the Space. We Build the Vision.",
+        content: "Guild Services — Turnkey Setup for Play Schools & Sensory Centers",
       },
       {
         property: "og:description",
         content:
-          "Turnkey setups for Child Development Centers, Play Schools, and Educational Institutions.",
+          "Vibrant interior design, sensory therapy equipment, soft play modules & ergonomic school furniture for Play Schools, Preschools & Clinics.",
       },
     ],
   }),
@@ -106,17 +106,17 @@ function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 bg-white/50 backdrop-blur-xl border-b border-white/60 shadow-sm transition-all duration-300 ${scrolled ? "py-1.5 shadow-md bg-white/80" : "py-3 md:py-4"}`}
+      className={`fixed inset-x-0 top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-blue-100 shadow-md transition-all duration-300 ${scrolled ? "py-1.5 bg-white/95" : "py-2 md:py-2.5"}`}
     >
       <div className="mx-auto flex items-center justify-between px-6 md:px-10 max-w-[1600px] transition-all duration-300">
         <a
           href="#top"
           data-cursor="link"
           data-cursor-label="home"
-          className="flex items-center gap-3 md:gap-4 group"
+          className="flex items-center gap-3 group"
         >
           <div
-            className={`relative shrink-0 overflow-hidden rounded-full border-2 border-[color:var(--copper)] bg-white p-0.5 shadow-md group-hover:scale-105 transition-all duration-300 ${scrolled ? "h-11 w-11" : "h-20 w-20"}`}
+            className={`relative shrink-0 overflow-hidden rounded-full border-2 border-red-500 bg-white p-0.5 shadow-md group-hover:scale-105 transition-all duration-300 ${scrolled ? "h-9 w-9" : "h-11 w-11 md:h-12 md:w-12"}`}
           >
             <img
               src={logo}
@@ -126,13 +126,13 @@ function Nav() {
           </div>
           <div className="flex flex-col">
             <span
-              className={`font-display tracking-tight leading-none font-bold text-[color:var(--ink)] transition-all duration-300 ${scrolled ? "text-xl md:text-2xl" : "text-2xl md:text-3xl"}`}
+              className={`font-display tracking-tight leading-none font-bold text-blue-950 transition-all duration-300 ${scrolled ? "text-lg md:text-xl" : "text-xl md:text-2xl"}`}
             >
               <span className="italic">Guild</span> Services
-              <span className="text-[color:var(--copper)]">.</span>
+              <span className="text-red-600">.</span>
             </span>
             <span
-              className={`font-mono uppercase tracking-[0.28em] text-[color:var(--copper)] font-bold transition-all duration-300 ${scrolled ? "text-[9px] mt-0.5" : "text-[11px] mt-1"}`}
+              className={`font-mono uppercase tracking-[0.28em] text-red-600 font-bold transition-all duration-300 ${scrolled ? "text-[8px] mt-0.5" : "text-[10px] mt-0.5"}`}
             >
               Guild Club
             </span>
@@ -260,74 +260,80 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section id="top" ref={ref} className="relative h-[125vh]">
+    <section id="top" ref={ref} className="relative min-h-screen overflow-hidden bg-blue-950">
       <motion.div style={{ y }} className="absolute inset-0 will-change-transform">
-        <img src={hero} alt="Preschool foyer" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[color:var(--ink)]/40 via-transparent to-[color:var(--background)]" />
-        <div className="godrays absolute inset-0" />
-        <div className="fog absolute inset-0" />
+        <img
+          src={hero}
+          alt="Child and Teacher Play School Sensory Equipment Setup"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/80 via-blue-950/45 to-transparent" />
+        <div className="godrays absolute inset-0 opacity-30" />
         <div className="grain" />
       </motion.div>
 
       <motion.div
         style={{ y: textY, opacity }}
-        className="relative z-10 sticky top-0 flex h-screen items-end pb-20"
+        className="relative z-10 flex min-h-screen items-center pt-28 sm:pt-32 md:pt-36 pb-16"
       >
         <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10">
-          <div className="mb-6 inline-flex items-center gap-4 rounded-full bg-white/95 backdrop-blur-xl px-5 py-2.5 border-2 border-[color:var(--copper)]/40 shadow-2xl">
-            <div className="h-14 w-14 overflow-hidden rounded-full border border-[color:var(--copper)]/30 bg-white p-0.5">
-              <img
-                src={logo}
-                alt="Guild Club Logo"
-                className="h-full w-full object-cover scale-110 rounded-full"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-mono text-[12px] uppercase tracking-[0.25em] font-bold text-[color:var(--ink)]">
-                GUILD CLUB
-              </span>
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-semibold text-[color:var(--copper)]">
-                YOU NAME IT, WE DO IT
-              </span>
-            </div>
-          </div>
-
-          <h1 className="font-display text-[10vw] leading-[0.88] tracking-[-0.03em] md:text-[7.5vw] text-white">
-            <RevealLine>You Show Us the Space.</RevealLine>
-            <RevealLine delay={0.15}>
-              <span className="text-white">We Build the </span>
-              <span className="italic text-[color:var(--ink)] drop-shadow-sm">Vision</span>.
-            </RevealLine>
-          </h1>
-
-          <div className="mt-8 grid gap-6 md:grid-cols-12 md:items-end">
-            <div className="md:col-span-7">
-              <p className="font-display text-xl sm:text-2xl text-[color:var(--ink)] font-semibold leading-snug">
-                The Absolute One-Stop Solution for Setting Up Child Development Centers, Play
-                Schools, and Educational Institutions.
-              </p>
-              <p className="mt-3 text-[15px] leading-relaxed text-[color:var(--foreground)]/85 max-w-xl">
-                Are you planning to launch a child development center, a vibrant play school, or a
-                full-scale educational campus? The vision is yours, but the execution doesn't have
-                to be your stress.
-                <br />
-                At <strong>Guild Services</strong>, we turn empty spaces into thriving, functional,
-                and beautiful learning environments. From the first brick to the final brand design,
-                we take care of absolutely everything.
-              </p>
+          <div className="max-w-2xl bg-blue-950/40 backdrop-blur-sm p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
+            {/* Promotional Badge */}
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-600/90 backdrop-blur-md px-4 py-1.5 border border-blue-400/40 shadow-xl text-white font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-bold">
+              <span className="h-2 w-2 rounded-full bg-red-500 animate-ping" />
+              <span>• SAME-DAY QUOTE • GST INVOICE • PAN-INDIA DELIVERY</span>
             </div>
 
-            <div className="md:col-span-5 md:flex md:flex-col md:items-end">
-              <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-[color:var(--ink)]/60 text-right">
-                <div>Turnkey Project Lifecycle</div>
-                <div className="mt-2 h-14 w-px animate-pulse bg-[color:var(--ink)]/40 ml-auto" />
-              </div>
+            {/* Main Headline */}
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-black leading-[0.95] tracking-tight text-white">
+              <RevealLine>You Show Us the Space.</RevealLine>
+              <RevealLine delay={0.15}>
+                <span className="text-white">We Build the </span>
+                <span className="italic text-[color:var(--brass)] font-serif">Vision</span>.
+              </RevealLine>
+            </h1>
+
+            {/* Clean, Streamlined Sub-heading */}
+            <p className="mt-4 text-sm sm:text-base text-blue-100 font-sans font-medium leading-relaxed">
+              The Absolute One-Stop Solution for Setting Up Child Development Centers, Play Schools, and Educational Institutions.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <a
+                href="https://wa.me/918008227539?text=Hi%2C%20I%20would%20like%20to%20get%20a%20bulk%20quote%20for%20an%20educational%2Fplay%20school%20setup."
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor="link"
+                data-cursor-label="quote"
+                className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-blue-950 font-bold shadow-2xl hover:bg-blue-50 transition-all scale-100 hover:scale-105"
+              >
+                <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                <span>Get a Bulk Quote</span>
+              </a>
+
+              <a
+                href="#services"
+                data-cursor="link"
+                data-cursor-label="explore"
+                className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/10 backdrop-blur-md px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-white font-bold hover:bg-white hover:text-blue-950 transition-all"
+              >
+                <span>Browse Services →</span>
+              </a>
+            </div>
+
+            {/* WhatsApp Note */}
+            <div className="mt-4 flex items-center gap-2 font-sans text-xs text-blue-200/90 font-medium">
+              <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-400" />
+              <span>Or chat on <strong>WhatsApp (+91 8008227539)</strong> — we reply within minutes</span>
             </div>
           </div>
         </div>
       </motion.div>
 
-      {/* Floating 3D Geometric Accents — Pushed behind text (z-0), hidden on mobile/tablet to prevent any overlap */}
+      {/* Floating 3D Geometric Accents */}
       <FloatingObject
         className="hidden lg:block left-[2%] top-[12%] z-0 opacity-30 float-y"
         size={48}
@@ -417,28 +423,30 @@ function FloatingObject({
 
 function Marquee() {
   const words = [
-    "Civil & Structural Works",
+    "Play School Setup",
     "✦",
-    "Vibrant Interiors",
+    "Sensory & OT Equipment",
     "✦",
-    "Specialized Furniture",
+    "Soft Play Zones",
     "✦",
-    "Smart Electronics & IT",
+    "Ergonomic Kids Furniture",
     "✦",
-    "End-to-End Branding",
+    "Child Safety Flooring",
     "✦",
-    "Zero Vendor Hassle",
+    "Vibrant Wall Murals",
+    "✦",
+    "Pan-India Delivery",
     "✦",
   ];
   return (
-    <section className="relative border-y border-[color:var(--ink)]/15 bg-[color:var(--bone)] py-8">
+    <section className="relative border-y border-[color:var(--ink)]/15 bg-blue-50/50 py-8">
       <div className="marquee-track flex whitespace-nowrap">
         {[...Array(2)].map((_, k) => (
           <div key={k} className="flex shrink-0 items-center gap-14 pr-14">
             {words.map((w, i) => (
               <span
                 key={i}
-                className={`font-display text-4xl md:text-5xl ${w === "✦" ? "text-[color:var(--copper)]" : ""}`}
+                className={`font-display text-4xl md:text-5xl ${w === "✦" ? "text-red-500 font-bold" : "text-blue-900 font-bold"}`}
               >
                 {w === "✦" ? "✦" : <span className="italic">{w}</span>}
               </span>
@@ -454,34 +462,34 @@ function Marquee() {
 
 const journey = [
   {
-    name: "Reception",
-    src: reception,
-    note: "First impression in oak & light. Complete check-in security & brand wall.",
+    name: "Institution Reception Foyer",
+    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+    note: "Modern reception architectural layout featuring a rounded front counter, acoustic wall paneling, child-safe entry gates, and institutional branding.",
   },
   {
-    name: "Library Nook",
-    src: library,
-    note: "A room designed to hush. Custom child-accessible shelving & soft seating.",
+    name: "Sensory OT Therapy Gym",
+    src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80",
+    note: "Pediatric therapy space equipped with sensory swings, tactile wall panels, soft agility steps, and anti-impact flooring mats.",
   },
   {
-    name: "Play Arena",
-    src: play,
-    note: "Movement as material. Safe, rounded, durable play modules.",
+    name: "Indoor Soft Play Arena",
+    src: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1200&q=80",
+    note: "High-density foam play block modules, foam climbing stairs, mini play slide, and padded protective floor layouts.",
   },
   {
-    name: "Sensory Room",
-    src: sensory,
-    note: "Warm copper glow, tactile walls, quiet ambient lighting for therapy.",
+    name: "Ergonomic Activity Classroom",
+    src: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80",
+    note: "Custom child-sized wooden activity tables, colorful student chairs, modular storage cubbies, and interactive wall board displays.",
   },
   {
-    name: "Smart Classroom",
-    src: classroom,
-    note: "Interactive smartboards, ergonomic furniture, and high-def CCTV setups.",
+    name: "Library & Storytelling Nook",
+    src: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80",
+    note: "Child-accessible colorful bookshelf shelving units, soft seating nooks, and quiet, focused early literacy architectural space.",
   },
   {
-    name: "Outdoor Zone",
-    src: outdoor,
-    note: "Safe playground fencing, accessibility ramps, and play grass turf.",
+    name: "Safe Outdoor Playground Turf",
+    src: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=1200&q=80",
+    note: "High-impact rubberized safety floor tiles, outdoor slide modules, safe climbing nets, and shade canopy structures.",
   },
 ];
 
@@ -568,28 +576,26 @@ function BigStatement() {
   return (
     <section
       id="promise"
-      className="relative py-40 bg-[color:var(--bone)] my-24 border-y border-[color:var(--ink)]/15"
+      className="relative py-36 bg-blue-50/80 my-24 border-y border-blue-100"
     >
       <div className="mx-auto max-w-5xl px-6 md:px-10 text-center space-y-8">
-        <div className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-2 border border-[color:var(--ink)]/20 shadow-md mx-auto">
+        <div className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-2 border border-blue-200 shadow-md mx-auto">
           <img src={logo} alt="Guild Logo" className="h-6 w-6 object-contain rounded-full" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-[color:var(--copper)] font-semibold">
-            Our Key Handover Promise
+          <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-red-600 font-bold">
+            Our Simple Promise
           </span>
         </div>
 
-        <h2 className="font-display text-3xl sm:text-5xl font-bold leading-tight text-[color:var(--ink)]">
+        <h2 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight text-blue-950">
           "You just show us the location.
           <br />
-          <span className="italic text-[color:var(--copper)]">
+          <span className="italic text-red-600">
             We will hand over the keys to a fully finished, branded, and operational center."
           </span>
         </h2>
 
-        <p className="text-base sm:text-lg text-[color:var(--muted-foreground)] max-w-2xl mx-auto leading-relaxed">
-          Launching a school or child center? Don't get bogged down by managing separate contractors
-          for civil work, interiors, electronics, and branding. We act as your single point of
-          contact for the entire setup.
+        <p className="text-base sm:text-lg text-blue-900/80 max-w-3xl mx-auto leading-relaxed font-medium">
+          Starting a child development center or school is an incredible milestone, but managing vendors, contractors, carpenters, and designers can quickly become overwhelming. That is where Guild Services steps in. We act as your single point of contact for the entire setup.
         </p>
       </div>
     </section>
@@ -601,33 +607,33 @@ function BigStatement() {
 const services = [
   {
     n: "01",
-    title: "Civil & Structural Works",
-    body: "Complete layout planning, remodeling, and structural modifications tailored for child safety, accessibility, and optimal space utility.",
-    img: outdoor,
+    title: "🧱 Civil & Structural Works",
+    body: "Complete layout planning, remodeling, and structural modifications tailored for child safety and accessibility.",
+    img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
   },
   {
     n: "02",
-    title: "Vibrant Interiors",
-    body: "Child-friendly, ergonomic, and highly engaging interior designing that inspires learning, playfulness, and creativity.",
-    img: reception,
+    title: "🎨 Vibrant Interiors",
+    body: "Child-friendly, ergonomic, and highly engaging interior designing that inspires learning and creativity.",
+    img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
   },
   {
     n: "03",
-    title: "Specialized Furniture",
-    body: "Safe, durable, rounded-edge and age-appropriate furniture custom-made for classrooms, therapy rooms, and play areas.",
-    img: play,
+    title: "🪑 Specialized Furniture",
+    body: "Safe, durable, and age-appropriate furniture for classrooms, therapy rooms, and play areas.",
+    img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80",
   },
   {
     n: "04",
-    title: "Smart Electronics & IT",
-    body: "Smartboards, sound systems, security/CCTV setups, and essential appliances completely installed and configured.",
-    img: classroom,
+    title: "💻 Smart Electronics & IT",
+    body: "Smartboards, sound systems, security/CCTV setups, and essential appliances completely installed.",
+    img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
   },
   {
     n: "05",
-    title: "End-to-End Branding",
-    body: "Logos, signage, wall graphics, uniforms, and marketing collaterals to give your institution a powerful premium identity.",
-    img: library,
+    title: "🏷️ End-to-End Branding",
+    body: "Logos, signage, wall graphics, and marketing collaterals to give your institution a powerful premium identity.",
+    img: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 
@@ -635,23 +641,23 @@ function ServicesFilm() {
   return (
     <section
       id="services"
-      className="relative bg-[color:var(--charcoal)] py-32 text-[color:var(--cream)]"
+      className="relative bg-blue-950 py-32 text-white"
     >
       <div className="mx-auto max-w-[1600px] px-6 md:px-10">
         <div className="flex items-end justify-between">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-[color:var(--copper)]">
-              🛠️ What We Do · 004
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-red-400 font-bold">
+              🛠️ Specialized Capabilities · 004
             </p>
-            <h2 className="mt-4 font-display text-5xl leading-[0.9] md:text-7xl">
-              Five <span className="italic">core offerings</span>.
+            <h2 className="mt-4 font-display text-5xl leading-[0.9] md:text-7xl font-bold">
+              Six <span className="italic text-blue-300">core solutions</span>.
             </h2>
           </div>
-          <p className="hidden max-w-xs text-sm text-[color:var(--cream)]/70 md:block">
-            We manage your entire project lifecycle so you can focus on education and care.
+          <p className="hidden max-w-xs text-sm text-blue-200/80 md:block font-medium">
+            We handle everything from initial raw space to fully equipped school, play school, and OT clinic handover.
           </p>
         </div>
-        <div className="mt-20 divide-y divide-white/10">
+        <div className="mt-20 divide-y divide-blue-800/60">
           {services.map((s) => (
             <ServiceRow key={s.n} s={s} />
           ))}
@@ -671,17 +677,17 @@ function ServiceRow({ s }: { s: (typeof services)[number] }) {
       data-cursor-label="view"
       className="group relative grid cursor-pointer grid-cols-12 items-center gap-6 py-10"
     >
-      <span className="col-span-2 font-mono text-xs tracking-[0.3em] text-[color:var(--cream)]/50 md:col-span-1">
+      <span className="col-span-2 font-mono text-xs tracking-[0.3em] text-blue-300/60 md:col-span-1 font-bold">
         {s.n}
       </span>
-      <h3 className="col-span-10 font-display text-3xl md:col-span-7 md:text-6xl">
+      <h3 className="col-span-10 font-display text-3xl md:col-span-7 md:text-4xl font-bold">
         <span
-          className={`inline-block transition-transform duration-500 ${hover ? "translate-x-6 italic text-[color:var(--copper)]" : ""}`}
+          className={`inline-block transition-transform duration-500 ${hover ? "translate-x-6 italic text-red-400" : "text-white"}`}
         >
           {s.title}
         </span>
       </h3>
-      <p className="col-span-12 text-sm text-[color:var(--cream)]/70 md:col-span-4">{s.body}</p>
+      <p className="col-span-12 text-sm text-blue-100/80 md:col-span-4 leading-relaxed">{s.body}</p>
       <AnimatePresence>
         {hover && (
           <motion.div
@@ -689,9 +695,13 @@ function ServiceRow({ s }: { s: (typeof services)[number] }) {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 30, scale: 0.95 }}
             transition={{ duration: 0.4 }}
-            className="pointer-events-none absolute right-6 top-1/2 hidden aspect-[4/5] w-52 -translate-y-1/2 overflow-hidden md:block rounded-xl border border-white/20 shadow-2xl z-20"
+            className="pointer-events-none absolute right-6 top-1/2 hidden aspect-[4/5] w-56 -translate-y-1/2 overflow-hidden md:block rounded-xl border border-blue-400/40 shadow-2xl z-20"
           >
-            <img src={s.img} alt="" className="h-full w-full object-cover" />
+            <img
+              src={s.img}
+              alt={s.title}
+              className="h-full w-full object-cover"
+            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -702,20 +712,28 @@ function ServiceRow({ s }: { s: (typeof services)[number] }) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function Gallery() {
-  const items = [reception, library, play, sensory, classroom, outdoor, hero];
+  const items = [
+    { src: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=1200&q=80", title: "Montessori Activity Zone" },
+    { src: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80", title: "Early Learning Reading Nook" },
+    { src: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80", title: "Smart Interactive Classroom" },
+    { src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80", title: "Creative Art & Craft Studio" },
+    { src: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1200&q=80", title: "Pediatric Motor Skill Room" },
+    { src: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=1200&q=80", title: "Indoor Sports & Rubber Turf" },
+    { src: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80", title: "Institutional Campus Assembly" },
+  ];
   return (
-    <section id="gallery" className="relative py-32">
+    <section id="gallery" className="relative py-32 bg-white">
       <div className="mx-auto max-w-[1600px] px-6 md:px-10">
         <div className="flex items-end justify-between">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-[color:var(--copper)]">
-              Archive · 005
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-red-600 font-bold">
+              Showcase · 005
             </p>
-            <h2 className="mt-4 font-display text-5xl leading-[0.9] md:text-7xl">
-              Selected <span className="italic">projects</span>.
+            <h2 className="mt-4 font-display text-5xl leading-[0.9] md:text-7xl font-extrabold text-blue-950">
+              Completed <span className="italic text-blue-600">projects</span>.
             </h2>
           </div>
-          <p className="hidden font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--ink)]/50 md:block">
+          <p className="hidden font-mono text-[10px] uppercase tracking-[0.3em] text-blue-900/50 md:block font-bold">
             Scroll horizontal →
           </p>
         </div>
@@ -725,24 +743,24 @@ function Gallery() {
         data-cursor-label="drag"
         className="mt-16 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-6 pb-8 md:px-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {items.map((src, i) => (
+        {items.map((item, i) => (
           <figure
             key={i}
             className="relative shrink-0 snap-start"
             style={{ width: "clamp(280px, 42vw, 620px)" }}
           >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-xl">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-blue-100 shadow-xl">
               <img
-                src={src}
-                alt=""
+                src={item.src}
+                alt={item.title}
                 loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
-              <div className="godrays absolute inset-0 opacity-40" />
+              <div className="godrays absolute inset-0 opacity-30" />
             </div>
-            <figcaption className="mt-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.3em]">
-              <span>Project Plate 0{i + 1}</span>
-              <span className="text-[color:var(--copper)]">Guild Services ✦ MMXXVI</span>
+            <figcaption className="mt-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.3em] font-bold">
+              <span className="text-blue-900">{item.title}</span>
+              <span className="text-red-600">Guild Services ✦ MMXXVI</span>
             </figcaption>
           </figure>
         ))}
@@ -758,12 +776,12 @@ function WhyUsPitch() {
   const reasons = [
     {
       title: "Zero Vendor Hassle",
-      desc: "No need to chase separate people for interiors, civil work, furniture, or smart electronics.",
+      desc: "No need to chase separate people for interiors, civil work, or electronics.",
       n: "01",
     },
     {
       title: "Built for Safety",
-      desc: "We specialize in setups that require strict safety compliance and child ergonomics.",
+      desc: "We specialize in setups that require strict safety compliance for children.",
       n: "02",
     },
     {
@@ -774,17 +792,17 @@ function WhyUsPitch() {
   ];
 
   return (
-    <section className="relative bg-[color:var(--bone)] py-36 border-y border-[color:var(--ink)]/15">
+    <section className="relative bg-blue-50/70 py-36 border-y border-blue-100">
       <div className="mx-auto max-w-[1600px] px-6 md:px-10">
         <div className="grid gap-16 md:grid-cols-12 items-center">
           <div className="md:col-span-5">
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-[color:var(--copper)]">
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-red-600 font-bold">
               Why Partner With Us · 006
             </p>
-            <h2 className="mt-4 font-display text-5xl leading-[0.95] md:text-6xl">
+            <h2 className="mt-4 font-display text-5xl leading-[0.95] md:text-6xl font-extrabold text-blue-950">
               Why institution
               <br />
-              <span className="italic text-[color:var(--copper)]">founders</span> choose
+              <span className="italic text-red-600">founders</span> choose
               <br />
               Guild Services.
             </h2>
@@ -794,13 +812,13 @@ function WhyUsPitch() {
               {reasons.map((r) => (
                 <div
                   key={r.n}
-                  className="bg-white p-6 rounded-xl border border-[color:var(--ink)]/15 shadow-sm"
+                  className="bg-white p-6 rounded-2xl border border-blue-100 shadow-lg hover:shadow-xl transition-all"
                 >
-                  <div className="font-mono text-xs text-[color:var(--copper)] font-semibold">
+                  <div className="font-mono text-xs text-red-600 font-bold">
                     {r.n}
                   </div>
-                  <h3 className="mt-3 font-display text-2xl font-bold">{r.title}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-[color:var(--muted-foreground)]">
+                  <h3 className="mt-3 font-display text-xl font-bold text-blue-950 leading-snug">{r.title}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-blue-900/70 font-medium">
                     {r.desc}
                   </p>
                 </div>
@@ -833,23 +851,26 @@ function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden py-36">
       <img
-        src={reception}
-        alt=""
+        src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=80"
+        alt="School Campus Architecture"
         className="absolute inset-0 h-full w-full object-cover opacity-20"
       />
       <div className="absolute inset-0 bg-[color:var(--background)]/85 backdrop-blur-sm" />
       <div className="relative mx-auto max-w-[1600px] px-6 md:px-10">
-        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-[color:var(--copper)] font-semibold">
-          Commission · 007
+        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-red-600 font-bold">
+          Get Started · 007
         </p>
-        <h2 className="mt-4 font-display text-5xl leading-[0.9] tracking-tight md:text-[7vw]">
-          <span className="italic">Begin</span> a<br />
-          conversation.
+        <h2 className="mt-4 font-display text-4xl leading-[0.95] tracking-tight md:text-6xl font-extrabold text-blue-950">
+          Dreaming of starting your own <br />
+          <span className="italic text-red-600">Play School</span> or <span className="italic text-blue-600">Child Center</span>?
         </h2>
-        <p className="mt-3 text-lg font-display text-[color:var(--ink)]">
-          Let’s build something amazing together. Fill in your details to start a conversation on
-          WhatsApp.
+        <p className="mt-4 text-base sm:text-lg text-blue-900/80 max-w-2xl leading-relaxed font-medium">
+          Don't get bogged down by the headache of construction, sourcing furniture, or finding decorators. With <strong>Guild Services</strong>, your setup journey is entirely stress-free.
         </p>
+        <div className="mt-4 flex flex-wrap gap-6 font-mono text-xs font-bold text-blue-950">
+          <span className="bg-white/80 backdrop-blur px-4 py-2 rounded-full border border-blue-200 shadow-sm">👉 Step 1: You show us the space.</span>
+          <span className="bg-white/80 backdrop-blur px-4 py-2 rounded-full border border-blue-200 shadow-sm">🔑 Step 2: We do the rest and hand over the keys.</span>
+        </div>
 
         <div className="mt-16 grid gap-12 md:grid-cols-12">
           {/* Details */}
