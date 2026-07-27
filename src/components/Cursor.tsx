@@ -6,6 +6,11 @@ export function Cursor() {
   const label = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Only initialize cursor on devices with fine pointer (mouse)
+    if (typeof window === "undefined" || !window.matchMedia("(pointer: fine)").matches) {
+      return;
+    }
+
     let x = -100,
       y = -100;
     let rx = -100,
@@ -14,8 +19,8 @@ export function Cursor() {
     let active = false;
 
     const loop = () => {
-      rx += (x - rx) * 0.3;
-      ry += (y - ry) * 0.3;
+      rx += (x - rx) * 0.35;
+      ry += (y - ry) * 0.35;
 
       if (dot.current) dot.current.style.transform = `translate3d(${x}px,${y}px,0)`;
       if (ring.current) ring.current.style.transform = `translate3d(${rx}px,${ry}px,0)`;
@@ -39,28 +44,31 @@ export function Cursor() {
 
     window.addEventListener("mousemove", move, { passive: true });
 
-    const targets = document.querySelectorAll<HTMLElement>("[data-cursor]");
-    const enter = (e: Event) => {
-      const el = e.currentTarget as HTMLElement;
-      ring.current?.setAttribute("data-mode", el.dataset.cursor || "hover");
-      if (label.current) label.current.textContent = el.dataset.cursorLabel || "";
+    // Efficient event delegation instead of attaching listeners to every element
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest?.("[data-cursor]") as HTMLElement | null;
+      if (target) {
+        ring.current?.setAttribute("data-mode", target.dataset.cursor || "hover");
+        if (label.current) label.current.textContent = target.dataset.cursorLabel || "";
+      }
     };
-    const leave = () => {
-      ring.current?.setAttribute("data-mode", "");
-      if (label.current) label.current.textContent = "";
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest?.("[data-cursor]") as HTMLElement | null;
+      if (target) {
+        ring.current?.setAttribute("data-mode", "");
+        if (label.current) label.current.textContent = "";
+      }
     };
-    targets.forEach((t) => {
-      t.addEventListener("mouseenter", enter);
-      t.addEventListener("mouseleave", leave);
-    });
+
+    document.addEventListener("mouseover", handleMouseOver, { passive: true });
+    document.addEventListener("mouseout", handleMouseOut, { passive: true });
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", move);
-      targets.forEach((t) => {
-        t.removeEventListener("mouseenter", enter);
-        t.removeEventListener("mouseleave", leave);
-      });
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 
@@ -96,3 +104,4 @@ export function Cursor() {
     </>
   );
 }
+

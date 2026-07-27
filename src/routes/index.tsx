@@ -82,12 +82,10 @@ function Nav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      const isScrolled = window.scrollY > 50;
+      setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -106,7 +104,7 @@ function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-blue-100 shadow-md transition-all duration-300 ${scrolled ? "py-1 bg-white/95" : "py-1.5 md:py-2"}`}
+      className={`fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-blue-100 shadow-md transition-all duration-300 ${scrolled ? "py-1" : "py-1.5 md:py-2"}`}
     >
       {/* Top Banner Strip for Instant Highlights */}
       <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-blue-950 text-white text-[10px] sm:text-[11px] font-mono tracking-wider py-1 px-4 border-b border-blue-800/50 mb-1">
@@ -314,7 +312,7 @@ function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 md:px-10">
-        <div className="max-w-2xl bg-blue-950/50 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
+        <div className="max-w-2xl bg-blue-950/80 backdrop-blur-sm p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
           {/* Promotional Badge */}
           <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-600/90 px-4 py-1.5 border border-blue-400/40 shadow-xl text-white font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-bold">
             <span className="h-2 w-2 rounded-full bg-red-500 animate-ping" />

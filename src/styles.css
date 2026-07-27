@@ -157,7 +157,12 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    cursor: none;
+  }
+
+  @media (pointer: fine) {
+    body {
+      cursor: none;
+    }
   }
 
   ::selection {
@@ -223,6 +228,8 @@
 
   .marquee-track {
     animation: marquee 40s linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
   }
   @keyframes marquee {
     from {
