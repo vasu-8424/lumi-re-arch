@@ -626,13 +626,13 @@ const services = [
     n: "01",
     title: "🧱 Civil & Structural Works",
     body: "Complete layout planning, remodeling, and structural modifications tailored for child safety and accessibility.",
-    img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
   },
   {
     n: "02",
     title: "🎨 Vibrant Interiors",
     body: "Child-friendly, ergonomic, and highly engaging interior designing that inspires learning and creativity.",
-    img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1560421683-6856ea585c78?auto=format&fit=crop&w=1200&q=80",
   },
   {
     n: "03",
@@ -644,19 +644,19 @@ const services = [
     n: "04",
     title: "🪑 Specialized Furniture",
     body: "Safe, durable, and age-appropriate furniture for classrooms, therapy rooms, and play areas.",
-    img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80",
   },
   {
     n: "05",
     title: "💻 Smart Electronics & IT",
     body: "Smartboards, sound systems, security/CCTV setups, and essential appliances completely installed.",
-    img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1200&q=80",
   },
   {
     n: "06",
     title: "🏷️ End-to-End Branding",
     body: "Logos, signage, wall graphics, and marketing collaterals to give your institution a powerful premium identity.",
-    img: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 
