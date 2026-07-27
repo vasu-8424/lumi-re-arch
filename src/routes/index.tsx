@@ -44,11 +44,11 @@ export function Index() {
       <Nav />
       <Hero />
       <Marquee />
+      <WhyUsPitch />
       <Journey />
       <BigStatement />
       <ServicesFilm />
       <Gallery />
-      <WhyUsPitch />
       <Contact />
       <Foot />
     </div>
@@ -106,8 +106,34 @@ function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-blue-100 shadow-md transition-all duration-300 ${scrolled ? "py-1.5 bg-white/95" : "py-2 md:py-2.5"}`}
+      className={`fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-blue-100 shadow-md transition-all duration-300 ${scrolled ? "py-1 bg-white/95" : "py-1.5 md:py-2"}`}
     >
+      {/* Top Banner Strip for Instant Highlights */}
+      <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-blue-950 text-white text-[10px] sm:text-[11px] font-mono tracking-wider py-1 px-4 border-b border-blue-800/50 mb-1">
+        <div className="mx-auto flex items-center justify-between max-w-[1600px]">
+          <div className="flex items-center gap-2">
+            <span className="inline-block h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="hidden sm:inline text-blue-200">Turnkey Play School & Child Center Setup</span>
+            <span className="sm:hidden text-blue-200">Turnkey Setup</span>
+          </div>
+          <div className="flex items-center gap-2 sm:gap-4 font-bold">
+            <a
+              href="#partner"
+              className="inline-flex items-center gap-1 text-amber-300 hover:text-white transition-all hover:scale-105 bg-amber-500/20 px-2.5 py-0.5 rounded-full border border-amber-400/40"
+            >
+              <span>🤝 Partner With Us</span>
+            </a>
+            <span className="text-blue-700">|</span>
+            <a
+              href="#get-started"
+              className="inline-flex items-center gap-1 text-rose-300 hover:text-white transition-all hover:scale-105 bg-red-500/20 px-2.5 py-0.5 rounded-full border border-red-400/40"
+            >
+              <span>🚀 Get Started</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div className="mx-auto flex items-center justify-between px-6 md:px-10 max-w-[1600px] transition-all duration-300">
         <a
           href="#top"
@@ -116,7 +142,7 @@ function Nav() {
           className="flex items-center gap-3 group"
         >
           <div
-            className={`relative shrink-0 overflow-hidden rounded-full border-2 border-red-500 bg-white p-0.5 shadow-md group-hover:scale-105 transition-all duration-300 ${scrolled ? "h-9 w-9" : "h-11 w-11 md:h-12 md:w-12"}`}
+            className={`relative shrink-0 overflow-hidden rounded-full border-2 border-red-500 bg-white p-0.5 shadow-md group-hover:scale-105 transition-all duration-300 ${scrolled ? "h-8 w-8" : "h-10 w-10 md:h-11 md:w-11"}`}
           >
             <img
               src={logo}
@@ -126,27 +152,27 @@ function Nav() {
           </div>
           <div className="flex flex-col">
             <span
-              className={`font-display tracking-tight leading-none font-bold text-blue-950 transition-all duration-300 ${scrolled ? "text-lg md:text-xl" : "text-xl md:text-2xl"}`}
+              className={`font-display tracking-tight leading-none font-bold text-blue-950 transition-all duration-300 ${scrolled ? "text-base md:text-lg" : "text-lg md:text-xl"}`}
             >
               <span className="italic">Guild</span> Services
               <span className="text-red-600">.</span>
             </span>
             <span
-              className={`font-mono uppercase tracking-[0.28em] text-red-600 font-bold transition-all duration-300 ${scrolled ? "text-[8px] mt-0.5" : "text-[10px] mt-0.5"}`}
+              className={`font-mono uppercase tracking-[0.28em] text-red-600 font-bold transition-all duration-300 ${scrolled ? "text-[8px]" : "text-[9px] mt-0.5"}`}
             >
               Guild Club
             </span>
           </div>
         </a>
 
-        <nav className="hidden gap-10 md:flex items-center">
-          {["Journey", "Services", "Gallery", "Promise", "Contact"].map((n) => (
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
+          {["Journey", "Services", "Gallery", "Promise"].map((n) => (
             <a
               key={n}
               href={`#${n.toLowerCase()}`}
               data-cursor="link"
               data-cursor-label="→"
-              className="group relative font-mono text-[11px] uppercase tracking-[0.28em]"
+              className="group relative font-mono text-[11px] uppercase tracking-[0.2em] text-blue-950/80 hover:text-blue-950 font-semibold"
             >
               <span className="relative">
                 {n}
@@ -154,9 +180,30 @@ function Nav() {
               </span>
             </a>
           ))}
+
+          {/* HIGHLIGHTED SECTIONS IN TOP NAV */}
+          <a
+            href="#partner"
+            data-cursor="link"
+            data-cursor-label="partner"
+            className="group relative font-mono text-[11px] uppercase tracking-[0.16em] font-extrabold px-3.5 py-1.5 rounded-full bg-amber-100/90 text-amber-950 border border-amber-400 hover:bg-amber-500 hover:text-white transition-all shadow-sm flex items-center gap-1.5 hover:scale-105"
+          >
+            <span className="text-xs">🤝</span>
+            <span>Partner With Us</span>
+          </a>
+
+          <a
+            href="#get-started"
+            data-cursor="link"
+            data-cursor-label="get started"
+            className="group relative font-mono text-[11px] uppercase tracking-[0.16em] font-extrabold px-3.5 py-1.5 rounded-full bg-gradient-to-r from-red-600 via-red-500 to-rose-600 text-white border border-red-400 hover:from-red-700 hover:to-rose-700 transition-all shadow-md hover:shadow-lg flex items-center gap-1.5 hover:scale-105"
+          >
+            <span className="text-xs">🚀</span>
+            <span>Get Started</span>
+          </a>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <a
             href="https://wa.me/918008227539"
             target="_blank"
@@ -169,7 +216,7 @@ function Nav() {
             onClick={() => setOpen(true)}
             data-cursor="link"
             data-cursor-label="enquire"
-            className="group relative overflow-hidden rounded-full border border-[color:var(--ink)]/40 px-5 py-2.5 font-mono text-[11px] uppercase tracking-[0.24em] backdrop-blur"
+            className="group relative overflow-hidden rounded-full border border-[color:var(--ink)]/40 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.24em] backdrop-blur"
           >
             <span className="relative z-10 transition-colors duration-500 group-hover:text-[color:var(--cream)]">
               Commission
@@ -305,7 +352,7 @@ function Hero() {
             </a>
 
             <a
-              href="#services"
+              href="#journey"
               data-cursor="link"
               data-cursor-label="explore"
               className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/10 px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-white font-bold hover:bg-white hover:text-blue-950 transition-all"
@@ -435,32 +482,32 @@ function Marquee() {
 const journey = [
   {
     name: "Institution Reception Foyer",
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+    src: reception,
     note: "Modern reception architectural layout featuring a rounded front counter, acoustic wall paneling, child-safe entry gates, and institutional branding.",
   },
   {
-    name: "Sensory OT Therapy Gym",
-    src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80",
-    note: "Pediatric therapy space equipped with sensory swings, tactile wall panels, soft agility steps, and anti-impact flooring mats.",
+    name: "Sensory OT Therapy Room",
+    src: sensory,
+    note: "Complete Sensory OT room setup featuring ceiling-mounted therapy swing rigs, illuminated LED bubble column, foam ball pit with slide, wall activity panels, climbing wall, balance beams, and anti-impact flooring.",
   },
   {
     name: "Indoor Soft Play Arena",
-    src: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1200&q=80",
+    src: play,
     note: "High-density foam play block modules, foam climbing stairs, mini play slide, and padded protective floor layouts.",
   },
   {
     name: "Ergonomic Activity Classroom",
-    src: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80",
+    src: classroom,
     note: "Custom child-sized wooden activity tables, colorful student chairs, modular storage cubbies, and interactive wall board displays.",
   },
   {
     name: "Library & Storytelling Nook",
-    src: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80",
+    src: library,
     note: "Child-accessible colorful bookshelf shelving units, soft seating nooks, and quiet, focused early literacy architectural space.",
   },
   {
     name: "Safe Outdoor Playground Turf",
-    src: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=1200&q=80",
+    src: outdoor,
     note: "High-impact rubberized safety floor tiles, outdoor slide modules, safe climbing nets, and shade canopy structures.",
   },
 ];
@@ -473,8 +520,8 @@ function Journey() {
           Walk-through · 002
         </p>
         <h2 className="mt-4 font-display text-5xl leading-[0.9] tracking-tight md:text-[7vw]">
-          Completed <br />
-          <span className="italic">learning environments</span>.
+          Ahead of this <br />
+          <span className="italic">complete learning environment</span>.
         </h2>
       </div>
       <div className="mt-20 space-y-36 md:space-y-48">
@@ -591,18 +638,24 @@ const services = [
   },
   {
     n: "03",
+    title: "🧩 Sensory & OT Room Setup",
+    body: "Pediatric OT sensory swing rigs, LED bubble columns, tactile activity boards, ball pits, climbing walls, and safety flooring.",
+    img: sensory,
+  },
+  {
+    n: "04",
     title: "🪑 Specialized Furniture",
     body: "Safe, durable, and age-appropriate furniture for classrooms, therapy rooms, and play areas.",
     img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80",
   },
   {
-    n: "04",
+    n: "05",
     title: "💻 Smart Electronics & IT",
     body: "Smartboards, sound systems, security/CCTV setups, and essential appliances completely installed.",
     img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
   },
   {
-    n: "05",
+    n: "06",
     title: "🏷️ End-to-End Branding",
     body: "Logos, signage, wall graphics, and marketing collaterals to give your institution a powerful premium identity.",
     img: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1200&q=80",
@@ -685,6 +738,7 @@ function ServiceRow({ s }: { s: (typeof services)[number] }) {
 
 function Gallery() {
   const items = [
+    { src: sensory, title: "Sensory OT Therapy Room" },
     { src: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=1200&q=80", title: "Montessori Activity Zone" },
     { src: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80", title: "Early Learning Reading Nook" },
     { src: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80", title: "Smart Interactive Classroom" },
@@ -764,7 +818,7 @@ function WhyUsPitch() {
   ];
 
   return (
-    <section className="relative bg-blue-50/70 py-36 border-y border-blue-100">
+    <section id="partner" className="relative bg-blue-50/70 py-36 border-y border-blue-100 scroll-mt-24">
       <div className="mx-auto max-w-[1600px] px-6 md:px-10">
         <div className="grid gap-16 md:grid-cols-12 items-center">
           <div className="md:col-span-5">
@@ -821,7 +875,8 @@ function Contact() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden py-36">
+    <section id="get-started" className="relative overflow-hidden py-36 scroll-mt-24">
+      <div id="contact" className="absolute -top-24" />
       <img
         src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=80"
         alt="School Campus Architecture"
