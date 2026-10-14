@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { Cursor } from "@/components/Cursor";
@@ -11,7 +11,7 @@ import sensory from "@/assets/sensory.jpg";
 import classroom from "@/assets/classroom.jpg";
 import outdoor from "@/assets/outdoor.jpg";
 import logo from "@/assets/logo.png";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Accessibility, Activity, CheckCircle2, ShieldCheck, Zap, User, Building2, X, Send } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,20 +37,23 @@ export const Route = createFileRoute("/")({
 });
 
 export function Index() {
+  const [isCommissionOpen, setIsCommissionOpen] = useState(false);
+
   return (
     <div className="relative overflow-hidden bg-[color:var(--background)] text-[color:var(--ink)]">
       <SmoothScroll />
-      <Cursor />
-      <Nav />
-      <Hero />
+      <Nav onOpenCommission={() => setIsCommissionOpen(true)} />
+      <Hero onOpenCommission={() => setIsCommissionOpen(true)} />
       <Marquee />
       <WhyUsPitch />
       <Journey />
       <BigStatement />
       <ServicesFilm />
+      <PhysicalRehabSection />
       <Gallery />
       <Contact />
       <Foot />
+      <CommissionModal open={isCommissionOpen} onClose={() => setIsCommissionOpen(false)} />
     </div>
   );
 }
@@ -76,8 +79,206 @@ const sendToWhatsApp = (formData: {
   window.open(url, "_blank");
 };
 
-function Nav() {
-  const [open, setOpen] = useState(false);
+interface CommissionModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+function CommissionModal({ open, onClose }: CommissionModalProps) {
+  const [formData, setFormData] = useState({
+    name: "",
+    org: "",
+    service: "Turnkey Play School / Preschool Setup",
+    phone: "",
+    email: "",
+    details: "",
+  });
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (open) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendToWhatsApp({
+      name: formData.name,
+      org: formData.org,
+      phone: formData.phone,
+      email: formData.email,
+      details: `[${formData.service}] ${formData.details}`,
+    });
+    onClose();
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-lg my-auto bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden text-slate-900 animate-in zoom-in-95 duration-200"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Top Header Strip */}
+        <div className="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 text-white p-5 sm:p-6 relative">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 h-9 w-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+            title="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          <div className="flex items-center gap-3">
+            <div className="h-12 w-12 rounded-full border-2 border-red-500 bg-white p-0.5 shadow-md shrink-0">
+              <img
+                src={logo}
+                alt="Guild Services Logo"
+                className="h-full w-full object-cover scale-110 rounded-full"
+              />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[9px] uppercase tracking-[0.24em] bg-red-600 text-white font-extrabold px-2 py-0.5 rounded-full">
+                  Commission
+                </span>
+                <span className="font-mono text-[10px] text-blue-200 tracking-wider uppercase font-semibold">
+                  Guild Services
+                </span>
+              </div>
+              <h3 className="font-display font-bold text-xl sm:text-2xl text-white tracking-tight mt-1">
+                Begin Your Project.
+              </h3>
+            </div>
+          </div>
+          <p className="mt-2.5 text-xs text-blue-100/90 leading-relaxed font-sans">
+            Complete turnkey setup for Child Development Centers, Play Schools, and Sensory Clinics. Submitting connects directly with our design engineers on WhatsApp.
+          </p>
+        </div>
+
+        {/* Form Body */}
+        <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4 text-xs font-sans max-h-[70vh] overflow-y-auto">
+          <div>
+            <label className="block text-slate-700 font-bold mb-1.5 flex items-center gap-1.5">
+              <User className="w-3.5 h-3.5 text-blue-700" />
+              <span>Full Name *</span>
+            </label>
+            <input
+              type="text"
+              required
+              placeholder="e.g. Dr. Rajesh Kumar or Principal Sharma"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-hidden font-medium text-sm transition-all"
+            />
+          </div>
+
+          <div>
+            <label className="block text-slate-700 font-bold mb-1.5 flex items-center gap-1.5">
+              <Building2 className="w-3.5 h-3.5 text-blue-700" />
+              <span>Institution / Organization *</span>
+            </label>
+            <input
+              type="text"
+              required
+              placeholder="e.g. Little Stars Academy or Care Child Development Center"
+              value={formData.org}
+              onChange={(e) => setFormData({ ...formData, org: e.target.value })}
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-hidden font-medium text-sm transition-all"
+            />
+          </div>
+
+          <div>
+            <label className="block text-slate-700 font-bold mb-1.5">
+              Project Type / Requirement
+            </label>
+            <select
+              value={formData.service}
+              onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-hidden font-medium text-sm transition-all"
+            >
+              <option value="Turnkey Play School / Preschool Setup">Turnkey Play School / Preschool Setup</option>
+              <option value="Child Development Center (CDC) Sensory Setup">Child Development Center (CDC) Sensory Setup</option>
+              <option value="Occupational Therapy & Sensory Gym Equipment">Occupational Therapy & Sensory Gym Equipment</option>
+              <option value="Physical Rehabilitation & Gait Mobility Wing">Physical Rehabilitation & Gait Mobility Wing</option>
+              <option value="Custom Interior, Civil & Academic Space">Custom Interior, Civil & Academic Space</option>
+            </select>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label className="block text-slate-700 font-bold mb-1.5 flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                <span>WhatsApp Phone *</span>
+              </label>
+              <input
+                type="tel"
+                required
+                placeholder="+91 98000 00000"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-hidden font-medium text-sm transition-all"
+              />
+            </div>
+            <div>
+              <label className="block text-slate-700 font-bold mb-1.5 flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-blue-700" />
+                <span>Email Address</span>
+              </label>
+              <input
+                type="email"
+                placeholder="contact@institution.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-hidden font-medium text-sm transition-all"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-slate-700 font-bold mb-1.5">
+              Space Area / Specific Requirements
+            </label>
+            <textarea
+              rows={2}
+              placeholder="e.g. 1,500 sq ft hall in Hyderabad, need sensory swings, soft play foam, and reception branding..."
+              value={formData.details}
+              onChange={(e) => setFormData({ ...formData, details: e.target.value })}
+              className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-hidden font-medium text-xs transition-all"
+            />
+          </div>
+
+          <div className="pt-2">
+            <button
+              type="submit"
+              className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-mono text-xs uppercase tracking-[0.2em] font-extrabold shadow-lg shadow-emerald-600/30 transition-all hover:scale-[1.01]"
+            >
+              <Send className="w-4 h-4" />
+              <span>Send Inquiry via WhatsApp →</span>
+            </button>
+            <p className="text-[11px] text-center text-slate-500 mt-2 font-medium">
+              Direct connection with Guild Services turnkey engineers • Instant response
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function Nav({ onOpenCommission }: { onOpenCommission: () => void }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -90,54 +291,31 @@ function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleModalSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const name = (form.elements.namedItem("name") as HTMLInputElement)?.value || "";
-    const org = (form.elements.namedItem("org") as HTMLInputElement)?.value || "";
-    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value || "";
-    const phone = (form.elements.namedItem("phone") as HTMLInputElement)?.value || "";
-
-    sendToWhatsApp({ name, org, email, phone });
-    setOpen(false);
-  };
-
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-blue-100 shadow-md transition-all duration-300 ${scrolled ? "py-1" : "py-1.5 md:py-2"}`}
     >
-      {/* Top Banner Strip for Instant Highlights */}
+      {/* Top Banner Strip */}
       <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-blue-950 text-white text-[10px] sm:text-[11px] font-mono tracking-wider py-1 px-4 border-b border-blue-800/50 mb-1">
         <div className="mx-auto flex items-center justify-between max-w-[1600px]">
           <div className="flex items-center gap-2">
             <span className="inline-block h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="hidden sm:inline text-blue-200">Turnkey Play School & Child Center Setup</span>
-            <span className="sm:hidden text-blue-200">Turnkey Setup</span>
+            <span className="text-blue-200 font-medium">Turnkey Play School, Child Center & Sensory Gym Setup</span>
           </div>
-          <div className="flex items-center gap-2 sm:gap-4 font-bold">
-            <a
-              href="#partner"
-              className="inline-flex items-center gap-1 text-amber-300 hover:text-white transition-all hover:scale-105 bg-amber-500/20 px-2.5 py-0.5 rounded-full border border-amber-400/40"
-            >
-              <span>🤝 Partner With Us</span>
-            </a>
-            <span className="text-blue-700">|</span>
-            <a
-              href="#get-started"
-              className="inline-flex items-center gap-1 text-rose-300 hover:text-white transition-all hover:scale-105 bg-red-500/20 px-2.5 py-0.5 rounded-full border border-red-400/40"
-            >
-              <span>🚀 Get Started</span>
-            </a>
+          <div className="hidden sm:flex items-center gap-4 text-blue-300 text-[10px]">
+            <span>• PAN-INDIA DELIVERY</span>
+            <span>• GST INVOICE</span>
+            <span>• SAME-DAY CONSULTATION</span>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto flex items-center justify-between px-6 md:px-10 max-w-[1600px] transition-all duration-300">
+      <div className="mx-auto flex items-center justify-between px-4 sm:px-6 md:px-10 max-w-[1600px] transition-all duration-300">
         <a
           href="#top"
           data-cursor="link"
           data-cursor-label="home"
-          className="flex items-center gap-3 group"
+          className="flex items-center gap-2.5 sm:gap-3 group"
         >
           <div
             className={`relative shrink-0 overflow-hidden rounded-full border-2 border-red-500 bg-white p-0.5 shadow-md group-hover:scale-105 transition-all duration-300 ${scrolled ? "h-8 w-8" : "h-10 w-10 md:h-11 md:w-11"}`}
@@ -163,8 +341,8 @@ function Nav() {
           </div>
         </a>
 
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
-          {["Journey", "Services", "Gallery", "Promise"].map((n) => (
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
+          {["Journey", "Services", "Rehab", "Gallery", "Promise"].map((n) => (
             <a
               key={n}
               href={`#${n.toLowerCase()}`}
@@ -178,126 +356,27 @@ function Nav() {
               </span>
             </a>
           ))}
-
-          {/* HIGHLIGHTED SECTIONS IN TOP NAV */}
-          <a
-            href="#partner"
-            data-cursor="link"
-            data-cursor-label="partner"
-            className="group relative font-mono text-[11px] uppercase tracking-[0.16em] font-extrabold px-3.5 py-1.5 rounded-full bg-amber-100/90 text-amber-950 border border-amber-400 hover:bg-amber-500 hover:text-white transition-all shadow-sm flex items-center gap-1.5 hover:scale-105"
-          >
-            <span className="text-xs">🤝</span>
-            <span>Partner With Us</span>
-          </a>
-
-          <a
-            href="#get-started"
-            data-cursor="link"
-            data-cursor-label="get started"
-            className="group relative font-mono text-[11px] uppercase tracking-[0.16em] font-extrabold px-3.5 py-1.5 rounded-full bg-gradient-to-r from-red-600 via-red-500 to-rose-600 text-white border border-red-400 hover:from-red-700 hover:to-rose-700 transition-all shadow-md hover:shadow-lg flex items-center gap-1.5 hover:scale-105"
-          >
-            <span className="text-xs">🚀</span>
-            <span>Get Started</span>
-          </a>
         </nav>
 
+        {/* Single Primary Commission Button */}
         <div className="flex items-center gap-3">
-          <a
-            href="https://wa.me/918008227539"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-700 bg-emerald-50 px-3.5 py-2 rounded-full border border-emerald-300 hover:bg-emerald-600 hover:text-white transition-all font-bold"
-          >
-            <span>WhatsApp Us</span>
-          </a>
           <button
-            onClick={() => setOpen(true)}
+            onClick={onOpenCommission}
             data-cursor="link"
-            data-cursor-label="enquire"
-            className="group relative overflow-hidden rounded-full border border-[color:var(--ink)]/40 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.24em] backdrop-blur"
+            data-cursor-label="commission"
+            className="group relative overflow-hidden rounded-full bg-gradient-to-r from-red-600 to-rose-600 px-5 sm:px-6 py-2 sm:py-2.5 font-mono text-xs uppercase tracking-[0.22em] text-white font-extrabold shadow-md hover:from-red-700 hover:to-rose-700 transition-all hover:scale-105"
           >
-            <span className="relative z-10 transition-colors duration-500 group-hover:text-[color:var(--cream)]">
-              Commission
-            </span>
-            <span className="absolute inset-0 -translate-y-full bg-[color:var(--ink)] transition-transform duration-500 group-hover:translate-y-0" />
+            <span>Commission</span>
           </button>
         </div>
       </div>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setOpen(false)}
-            className="fixed inset-0 z-[60] bg-[color:var(--ink)]/80 backdrop-blur-sm"
-          >
-            <motion.div
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 40, opacity: 0 }}
-              className="absolute left-1/2 top-1/2 w-[92%] max-w-lg -translate-x-1/2 -translate-y-1/2 bg-[color:var(--cream)] p-10 shadow-2xl border border-[color:var(--ink)]/20"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <img
-                  src={logo}
-                  alt="Guild Logo"
-                  className="h-10 w-10 object-cover rounded-full bg-white p-0.5 border"
-                />
-                <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--copper)] font-semibold">
-                  Enquire · Guild Services
-                </p>
-              </div>
-              <h3 className="font-display text-4xl">Begin your project.</h3>
-              <p className="mt-3 text-sm text-[color:var(--muted-foreground)]">
-                Complete turnkey setup for Child Development Centers, Play Schools, and Educational
-                Institutions. Submitting will redirect directly to WhatsApp.
-              </p>
-              <form className="mt-8 space-y-4" onSubmit={handleModalSubmit}>
-                <input
-                  name="name"
-                  required
-                  placeholder="Full name"
-                  className="w-full border-b border-[color:var(--ink)]/30 bg-transparent py-3 font-mono text-sm outline-none placeholder:text-[color:var(--ink)]/40 focus:border-[color:var(--copper)]"
-                />
-                <input
-                  name="org"
-                  placeholder="Institution / Organization"
-                  className="w-full border-b border-[color:var(--ink)]/30 bg-transparent py-3 font-mono text-sm outline-none placeholder:text-[color:var(--ink)]/40 focus:border-[color:var(--copper)]"
-                />
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Email address"
-                  className="w-full border-b border-[color:var(--ink)]/30 bg-transparent py-3 font-mono text-sm outline-none placeholder:text-[color:var(--ink)]/40 focus:border-[color:var(--copper)]"
-                />
-                <input
-                  name="phone"
-                  required
-                  type="tel"
-                  placeholder="Phone number (WhatsApp)"
-                  className="w-full border-b border-[color:var(--ink)]/30 bg-transparent py-3 font-mono text-sm outline-none placeholder:text-[color:var(--ink)]/40 focus:border-[color:var(--copper)]"
-                />
-                <button
-                  type="submit"
-                  className="mt-6 w-full border border-emerald-600 bg-emerald-600 py-3 font-mono text-[11px] uppercase tracking-[0.28em] text-white transition-colors hover:bg-emerald-700 font-bold"
-                >
-                  Send Inquiry via WhatsApp →
-                </button>
-              </form>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-function Hero() {
+function Hero({ onOpenCommission }: { onOpenCommission: () => void }) {
   return (
     <section id="top" className="relative min-h-screen overflow-hidden bg-blue-950 flex items-center pt-28 sm:pt-32 md:pt-36 pb-16">
       <div className="absolute inset-0 pointer-events-none">
@@ -333,36 +412,17 @@ function Hero() {
             The Absolute One-Stop Solution for Setting Up Child Development Centers, Play Schools, and Educational Institutions.
           </p>
 
-          {/* Action Buttons */}
-          <div className="mt-6 flex flex-wrap items-center gap-4">
-            <a
-              href="https://wa.me/918008227539?text=Hi%2C%20I%20would%20like%20to%20get%20a%20bulk%20quote%20for%20an%20educational%2Fplay%20school%20setup."
-              target="_blank"
-              rel="noopener noreferrer"
+          {/* Single Action Button */}
+          <div className="mt-8 flex items-center">
+            <button
+              onClick={onOpenCommission}
               data-cursor="link"
-              data-cursor-label="quote"
-              className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-blue-950 font-bold shadow-2xl hover:bg-blue-50 transition-all scale-100 hover:scale-105"
+              data-cursor-label="commission"
+              className="group inline-flex items-center gap-3.5 rounded-full bg-gradient-to-r from-red-600 via-red-500 to-rose-600 px-8 py-4 font-mono text-xs sm:text-sm uppercase tracking-[0.22em] text-white font-black shadow-2xl shadow-red-600/40 hover:from-red-700 hover:to-rose-700 transition-all hover:scale-105"
             >
-              <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-              <span>Get a Bulk Quote</span>
-            </a>
-
-            <a
-              href="#journey"
-              data-cursor="link"
-              data-cursor-label="explore"
-              className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/10 px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-white font-bold hover:bg-white hover:text-blue-950 transition-all"
-            >
-              <span>Browse Services →</span>
-            </a>
-          </div>
-
-          {/* WhatsApp Note */}
-          <div className="mt-4 flex items-center gap-2 font-sans text-xs text-blue-200/90 font-medium">
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-400" />
-            <span>Or chat on <strong>WhatsApp (+91 8008227539)</strong> — we reply within minutes</span>
+              <span>Commission a Space</span>
+              <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+            </button>
           </div>
         </div>
       </div>
@@ -626,13 +686,13 @@ const services = [
     n: "01",
     title: "🧱 Civil & Structural Works",
     body: "Complete layout planning, remodeling, and structural modifications tailored for child safety and accessibility.",
-    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=70",
   },
   {
     n: "02",
     title: "🎨 Vibrant Interiors",
     body: "Child-friendly, ergonomic, and highly engaging interior designing that inspires learning and creativity.",
-    img: "https://images.unsplash.com/photo-1560421683-6856ea585c78?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1560421683-6856ea585c78?auto=format&fit=crop&w=600&q=70",
   },
   {
     n: "03",
@@ -644,19 +704,19 @@ const services = [
     n: "04",
     title: "🪑 Specialized Furniture",
     body: "Safe, durable, and age-appropriate furniture for classrooms, therapy rooms, and play areas.",
-    img: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=600&q=70",
   },
   {
     n: "05",
     title: "💻 Smart Electronics & IT",
     body: "Smartboards, sound systems, security/CCTV setups, and essential appliances completely installed.",
-    img: "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=600&q=70",
   },
   {
     n: "06",
     title: "🏷️ End-to-End Branding",
     body: "Logos, signage, wall graphics, and marketing collaterals to give your institution a powerful premium identity.",
-    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=600&q=70",
   },
 ];
 
@@ -733,17 +793,231 @@ function ServiceRow({ s }: { s: (typeof services)[number] }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// PHYSICAL REHABILITATION & CLINICAL CONSULTATION SECTION
+// ─────────────────────────────────────────────────────────────────────────────
+
+function PhysicalRehabSection() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    service: "Neuro-Physical Rehabilitation & Gait Training",
+    notes: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const whatsappNumber = "918008227539";
+    const msg = `*Physical Rehabilitation & Clinical Inquiry - Guild Services*\n\n` +
+      `👤 *Patient / Contact:* ${formData.name}\n` +
+      `📞 *Phone / WhatsApp:* ${formData.phone}\n` +
+      `🩺 *Service Requested:* ${formData.service}\n` +
+      `📝 *Clinical Details:* ${formData.notes || "Initial consultation request"}`;
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
+    setSubmitted(true);
+  };
+
+  return (
+    <section id="rehab" className="relative py-24 md:py-32 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 text-white overflow-hidden">
+      {/* Decorative background glow */}
+      <div className="absolute top-1/4 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative mx-auto max-w-[1600px] px-6 md:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left Column: Clinical Highlights */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/80 border border-blue-500/40 text-blue-300 text-xs font-mono font-bold tracking-widest uppercase">
+              <Accessibility className="w-4 h-4 text-sky-400" />
+              <span>Physical Rehabilitation & Mobility Care</span>
+            </div>
+
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">
+              Advanced Neuro-Physiotherapy, Gait Restoration & Mobility Systems.
+            </h2>
+
+            <p className="text-slate-300 text-base md:text-lg leading-relaxed font-sans max-w-2xl">
+              From turnkey pediatric sensory-motor gyms to clinical adult neuro-rehabilitation setups, we empower recovery with evidence-based physical therapy, gait retraining harnesses, and neuromuscular stimulation.
+            </p>
+
+            {/* 4 Feature Highlights */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-sm hover:border-slate-700 transition-colors">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="h-9 w-9 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
+                    <Activity className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-white text-sm">Neuro-Gait Training</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Post-stroke hemiparetic cadence restoration, body-weight support harness treadmill walking, and foot-drop rehabilitation.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-sm hover:border-slate-700 transition-colors">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="h-9 w-9 rounded-xl bg-sky-600/20 border border-sky-500/40 flex items-center justify-center text-sky-400">
+                    <Accessibility className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-white text-sm">Pediatric Motor Gym</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Core stability, balance stepping stones, sensory swings, and developmental coordination delay therapy for kids.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-sm hover:border-slate-700 transition-colors">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="h-9 w-9 rounded-xl bg-amber-600/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-white text-sm">VitalStim® Electrotherapy</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Targeted neuromuscular electrical stimulation (NMES) for pharyngeal swallowing and facial motor recruitment.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-sm hover:border-slate-700 transition-colors">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="h-9 w-9 rounded-xl bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-white text-sm">Turnkey Clinic Setup</h3>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  End-to-end medical civil works, ergonomic parallel bars, rubber flooring, and complete rehabilitation equipment setup.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Compact Physical Rehab Contact Form */}
+          <div className="lg:col-span-5">
+            <div className="bg-slate-950/90 rounded-3xl border border-slate-800 p-6 md:p-8 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl" />
+
+              <div className="mb-6">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-blue-400 font-bold block mb-1">
+                  Direct Clinical Appointment & Setup
+                </span>
+                <h3 className="text-2xl font-bold text-white tracking-tight">
+                  Schedule Rehabilitation Consultation
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Connect with our rehabilitation specialists and turnkey setup engineers.
+                </p>
+              </div>
+
+              {submitted ? (
+                <div className="p-6 rounded-2xl bg-emerald-950/60 border border-emerald-600/60 text-center space-y-3 animate-in fade-in">
+                  <div className="h-12 w-12 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
+                  <h4 className="font-bold text-lg text-emerald-200">Consultation Dispatched!</h4>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Your physical rehabilitation inquiry has been opened on WhatsApp. Our medical team will review your requirements immediately.
+                  </p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="mt-2 text-xs text-emerald-400 font-semibold underline hover:text-emerald-300 cursor-pointer"
+                  >
+                    Submit another consultation request
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+                  <div>
+                    <label className="block text-slate-300 font-semibold mb-1">Full Name *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Dr. Rajesh or Patient Guardian"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder:text-slate-500 focus:outline-hidden focus:ring-2 focus:ring-blue-500 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-semibold mb-1">Contact Phone / WhatsApp *</label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="+91 98000 00000"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder:text-slate-500 focus:outline-hidden focus:ring-2 focus:ring-blue-500 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-semibold mb-1">Service Required *</label>
+                    <select
+                      value={formData.service}
+                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-hidden focus:ring-2 focus:ring-blue-500 transition-all"
+                    >
+                      <option value="Neuro-Physical Rehabilitation & Gait Training">
+                        Neuro-Physical Rehabilitation & Gait Training
+                      </option>
+                      <option value="Pediatric Physiotherapy & Motor Gym Setup">
+                        Pediatric Physiotherapy & Motor Gym Setup
+                      </option>
+                      <option value="VitalStim® NMES & Dysphagia Therapy">
+                        VitalStim® NMES & Dysphagia Therapy
+                      </option>
+                      <option value="Complete Turnkey Rehabilitation Center Setup">
+                        Complete Turnkey Rehabilitation Center Setup
+                      </option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-semibold mb-1">Brief Clinical Need / Space Details</label>
+                    <textarea
+                      rows={2}
+                      placeholder="e.g. Post-stroke recovery for elderly parent, or 1200 sq ft sensory clinic setup..."
+                      value={formData.notes}
+                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder:text-slate-500 focus:outline-hidden focus:ring-2 focus:ring-blue-500 transition-all"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full py-3 px-4 font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 rounded-xl shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer text-xs"
+                  >
+                    <span>Request Rehabilitation Consultation</span>
+                    <span>→</span>
+                  </button>
+
+                  <p className="text-[10px] text-slate-500 text-center">
+                    Instant WhatsApp connection • Direct response within 30 minutes
+                  </p>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 function Gallery() {
   const items = [
     { src: sensory, title: "Sensory OT Therapy Room" },
-    { src: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=1200&q=80", title: "Montessori Activity Zone" },
-    { src: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80", title: "Early Learning Reading Nook" },
-    { src: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80", title: "Smart Interactive Classroom" },
-    { src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80", title: "Creative Art & Craft Studio" },
-    { src: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1200&q=80", title: "Pediatric Motor Skill Room" },
-    { src: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=1200&q=80", title: "Indoor Sports & Rubber Turf" },
-    { src: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80", title: "Institutional Campus Assembly" },
+    { src: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=600&q=70", title: "Montessori Activity Zone" },
+    { src: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=70", title: "Early Learning Reading Nook" },
+    { src: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=70", title: "Smart Interactive Classroom" },
+    { src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=70", title: "Creative Art & Craft Studio" },
+    { src: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=600&q=70", title: "Pediatric Motor Skill Room" },
+    { src: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=600&q=70", title: "Indoor Sports & Rubber Turf" },
+    { src: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=70", title: "Institutional Campus Assembly" },
   ];
   return (
     <section id="gallery" className="relative py-32 bg-white">

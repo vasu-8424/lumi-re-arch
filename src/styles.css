@@ -159,11 +159,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  @media (pointer: fine) {
-    body {
-      cursor: none;
-    }
-  }
+
 
   ::selection {
     background: var(--copper);
